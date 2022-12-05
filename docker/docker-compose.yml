@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  db:
+    image: arangodb
+    environment:
+      ARANGO_ROOT_PASSWORD: root_passwd
+    ports:
+      - 8529:8529
+  client:
+    build: .
+    network_mode: "host"
+    restart: on-failure
+    volumes:
+      - arangodb-AS:/arangodb/AS
+  web:
+    image: httpd
+    ports:
+      - 8080:80
+    volumes:
+      - arangodb-AS:/usr/local/apache2/htdocs
+volumes:
+  arangodb-AS:

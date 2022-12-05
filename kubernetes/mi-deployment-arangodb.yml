@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-deployment-arangodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      componente: arangodb
+  template:
+    metadata:
+      labels:
+        componente: arangodb
+    spec:
+      containers:
+      - name: mi-pod-arangodb
+        image: arangodb
+        env:
+        - name: ARANGO_ROOT_PASSWORD
+          value: "root_passwd"
+        ports:
+        - containerPort: 8529

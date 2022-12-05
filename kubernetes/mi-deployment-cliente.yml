@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-deployment-cliente
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      componente: cliente
+  template:
+    metadata:
+      labels:
+        componente: cliente
+    spec:
+      volumes:
+        - name: almacenamiento-arangodb
+          persistentVolumeClaim:
+            claimName: mi-reclamacion-vp
+      containers:
+      - name: mi-pod-cliente
+        image: isasigor/arangodb-kubernetes-client
+        volumeMounts:
+          - name: almacenamiento-arangodb
+            mountPath: /miVolumen
+            subPath: arangodb

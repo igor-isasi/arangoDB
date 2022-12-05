@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-cluster-ip-arangodb
+  labels:
+    componente: mi-cluster-ip-arangodb
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8529
+    targetPort: 8529
+  selector:
+    componente: arangodb
